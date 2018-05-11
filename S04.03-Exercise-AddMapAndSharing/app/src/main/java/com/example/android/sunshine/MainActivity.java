@@ -211,6 +211,24 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         return true;
     }
 
+    void showMap() {
+        String location = "Delhi,India";
+        Uri.Builder builder = new Uri.Builder();
+        Uri uri = builder
+                    .scheme("geo")
+                    .path("0,0")
+                    .query(location)
+                    .build();
+
+        //Map Intent
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW);
+        mapIntent.setData(uri);
+
+        if(mapIntent.resolveActivity(this.getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -221,8 +239,10 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             return true;
         }
 
-        // TODO (2) Launch the map when the map menu item is clicked
-
+        // COMPLETE (2) Launch the map when the map menu item is clicked
+        else if(id == R.id.action_map) {
+            showMap();
+        }
         return super.onOptionsItemSelected(item);
     }
 }
